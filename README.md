@@ -26,17 +26,20 @@ A beautiful, mobile-friendly interactive slideshow app built with Vite and Swipe
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/shortdaddy0711/evange.git
    cd evange
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -56,13 +59,21 @@ The output will be in the `dist/` directory, which can be deployed to any static
 ## 📱 Mobile Optimization
 
 This app is specifically tuned for modern smartphones:
+
 - Uses `viewport-fit=cover` for full-screen experience.
 - Implements `env(safe-area-inset-top)` to avoid content being cut off by device notches.
 - Uses `100dvh` for accurate full-screen height on mobile browsers.
+
+## 📱 Share the App
+
+Scan this QR code to open the app on your mobile device:
+
+![QR Code](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://evange.vercel.app)
 
 ## 📄 License
 
 This project is for personal/church use. [Insert License Type if applicable, e.g., MIT]
 
 ---
+
 Developed for Maranatha Vision Church.
