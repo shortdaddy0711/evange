@@ -1,0 +1,336 @@
+:root {
+  --box-bg: rgba(255, 255, 255, 0.85); /* White with transparency */
+  --text-main: #2c3e50;
+  --accent-color: #346baa;
+  --gold-highlight: #f1c40f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-main);
+  background-color: #ffffff;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.swiper {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.swiper-slide {
+  overflow: hidden;
+}
+
+/* Style pagination dots */
+.swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.5;
+}
+.swiper-pagination-bullet-active {
+  background: var(--gold-highlight);
+  opacity: 1;
+}
+
+/* Each Page is a Full Screen Section */
+section {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+  overflow: hidden;
+}
+
+.styled-text {
+  position: absolute;
+  z-index: 10;
+  padding: 25px;
+  padding-top: max(25px, env(safe-area-inset-top));
+  bottom: 0;
+  left: 0;
+  font-weight: bold; /* Makes text extra bold/thick */
+  font-size: 50px; /* Adjust size as needed */
+  line-height: 1.1; /* Controls spacing between lines */
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  color: white; /* The fill color of the text */
+  -webkit-text-stroke-width: 1px; /* Thickness of the black outline */
+  -webkit-text-stroke-color: black; /* Color of the outline */
+}
+
+/* The Background Image Layer */
+.bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* The Text Box Layer */
+.content-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 10%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  padding: 70px 20px 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  z-index: 2;
+  text-align: left;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--accent-color);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #d35400;
+}
+
+.verse {
+  font-style: italic;
+  color: #555;
+  border-left: 3px solid var(--gold-highlight);
+  padding-left: 10px;
+  margin: 15px 0;
+  display: block;
+}
+
+/* Button Styling */
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 30px;
+  background-color: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.card {
+  background-color: #f5f2ea;
+  border: none;
+  max-width: 600px;
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.card-content {
+  padding: 25px;
+  border: 1px solid #e0cda8;
+}
+
+/* Normal Grey Text */
+p.normal-text,
+.normal-text {
+  color: #5a5a5a; /* Slightly lighter grey to match the image */
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+/* 
+p.normal-text {
+  margin-bottom: 20px;
+} */
+
+/* Pink Quote Text */
+p.quote-text,
+.quote-text {
+  color: #e6007e; /* Brighter magenta/hot pink to match the image */
+  font-family: "Georgia", "Times New Roman", serif; /* Serif font for quotes */
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+p.quote-text {
+  margin-bottom: 20px;
+}
+
+p.question-text,
+.question-text {
+  color: #310b88; /* Brighter magenta/hot pink to match the image */
+  font-family: "Georgia", "Times New Roman", serif; /* Serif font for quotes */
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+p.five-thing-text,
+.five-thing-text {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* The citation (e.g. John 3:16) styling overrides the pink */
+.citation {
+  color: #4a4a4a; /* Back to Grey */
+  font-family: Helvetica, Arial, sans-serif; /* Back to Sans-serif */
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+/* Specific Slide Backgrounds */
+/* Replace 'url' with your actual image paths */
+#slide1 .bg-layer {
+  background-image: url("../images/page1.png");
+}
+#slide2 .bg-layer {
+  background-image: url("../images/page2.png");
+}
+#slide3 .bg-layer {
+  background-image: url("../images/page3.png");
+}
+#slide4 .bg-layer {
+  background-image: url("../images/page4.png");
+}
+#slide5 .bg-layer {
+  background-image: url("../images/page5.png");
+}
+#slide6 .bg-layer {
+  background-image: url("../images/page6.png");
+}
+#slide7 .bg-layer {
+  background-image: url("../images/page7.png");
+}
+#slide8 .bg-layer {
+  background-image: url("../images/page8.png");
+}
+#slide9 .bg-layer {
+  background-image: url("../images/page9.png");
+}
+#slide10 .bg-layer {
+  background-image: url("../images/page10.png");
+}
+#slide11 .bg-layer {
+  background-image: url("../images/page11.png");
+}
+#slide12 .bg-layer {
+  background-image: url("../images/page12.png");
+}
+#slide13 .bg-layer {
+  background-image: url("../images/page13.png");
+}
+#slide14 .bg-layer {
+  background-image: url("../images/page14.png");
+}
+#slide15 .bg-layer {
+  background-image: url("../images/page15.png");
+}
+#slide16 .bg-layer {
+  background-image: url("../images/page2.png");
+}
+
+/* Resize background images for slides 3-9 to 70% height */
+#slide3 .bg-layer,
+#slide4 .bg-layer,
+#slide5 .bg-layer,
+#slide6 .bg-layer,
+#slide7 .bg-layer,
+#slide8 .bg-layer,
+#slide9 .bg-layer,
+#slide10 .bg-layer,
+#slide11 .bg-layer,
+#slide12 .bg-layer,
+#slide13 .bg-layer,
+#slide14 .bg-layer,
+#slide15 .bg-layer {
+  height: 75%;
+  background-size: contain;
+  background-position: center top;
+}
+
+/* Animation */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll Hint Arrow */
+.scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  z-index: 3;
+  animation: bounce 2s infinite;
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
