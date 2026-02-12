@@ -36,6 +36,7 @@ let isCardExpanded = false;
 let startY = 0;
 let currentY = 0;
 let isDragging = false;
+let isHandleDrag = false;
 
 // 현재 활성 슬라이드의 카드와 섹션 가져오기
 function getActiveElements() {
@@ -72,21 +73,9 @@ function collapseCard() {
   swiper.allowTouchMove = true; // Swiper 스와이프 활성화
 }
 
-// 카드 위 터치 시 Swiper 잠금/해제
-function syncSwiperLock(target) {
-  const elements = getActiveElements();
-  if (!elements) {
-    swiper.allowTouchMove = true;
-    return;
-  }
-
-  if (!isCardExpanded) {
-    swiper.allowTouchMove = true;
-    return;
-  }
-
-  const isOnCard = elements.card.contains(target);
-  swiper.allowTouchMove = !isOnCard;
+function isInHandleArea(card, clientY) {
+  const rect = card.getBoundingClientRect();
+  return clientY - rect.top <= 60;
 }
 
 // 터치 시작
@@ -96,11 +85,11 @@ function handleTouchStart(e) {
 
   // 카드 영역에서만 드래그 시작
   const card = elements.card;
-  syncSwiperLock(e.target);
   if (!card.contains(e.target)) return;
 
   startY = e.touches[0].clientY;
   isDragging = true;
+  isHandleDrag = isInHandleArea(card, startY);
 }
 
 // 터치 이동
@@ -109,19 +98,37 @@ function handleTouchMove(e) {
 
   currentY = e.touches[0].clientY;
   const deltaY = startY - currentY;
+  const elements = getActiveElements();
+  if (!elements) return;
+  const card = elements.card;
+  const canScrollDown = card.scrollTop + card.clientHeight < card.scrollHeight - 1;
+  const canScrollUp = card.scrollTop > 0;
 
   // 축소 상태에서 위로 스와이프 (50px 이상)
   if (!isCardExpanded && deltaY > 50) {
     expandCard();
     isDragging = false;
+    e.stopPropagation();
   }
   // 확장 상태에서 아래로 스와이프 (50px 이상)
   else if (isCardExpanded && deltaY < -50) {
     // 카드 내부 스크롤이 최상단일 때만 축소
-    const elements = getActiveElements();
-    if (elements && elements.card.scrollTop <= 0) {
+    if (isHandleDrag && card.scrollTop <= 0) {
       collapseCard();
       isDragging = false;
+      e.stopPropagation();
+    }
+  }
+
+  // 카드 내부 스크롤이 가능한 방향이면 Swiper로 전달하지 않음
+  if (isCardExpanded) {
+    const isSwipeUp = deltaY > 0;
+    const isSwipeDown = deltaY < 0;
+    const shouldScrollCard =
+      (isSwipeUp && canScrollDown) || (isSwipeDown && canScrollUp);
+
+    if (shouldScrollCard) {
+      e.stopPropagation();
     }
   }
 }
@@ -131,6 +138,7 @@ function handleTouchEnd() {
   isDragging = false;
   startY = 0;
   currentY = 0;
+  isHandleDrag = false;
   swiper.allowTouchMove = true;
 }
 
