@@ -97,12 +97,12 @@ section {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 10px 24px 80px 24px;
+  padding: 10px 16px 16px 16px;
 }
 
 /* content-box 스크롤 설정 */
 .content-box {
-  padding: 0 24px 80px 24px;
+  padding: 0 16px 16px 16px;
 }
 .content-box.expanded {
   overflow-y: auto;
@@ -139,7 +139,7 @@ h1, h2, h3 {
 p {
   font-size: 17px;
   line-height: 1.6;
-  margin-bottom: 16px;
+  margin-bottom: 0px;
   color: #4b5563;
 }
 .quote-text {

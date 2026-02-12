@@ -59,7 +59,6 @@ function expandCard() {
   elements.card.classList.add("expanded");
   elements.section.classList.add("card-expanded");
   isCardExpanded = true;
-  swiper.allowTouchMove = false; // Swiper 스와이프 비활성화
 }
 
 // 카드 축소
@@ -73,6 +72,23 @@ function collapseCard() {
   swiper.allowTouchMove = true; // Swiper 스와이프 활성화
 }
 
+// 카드 위 터치 시 Swiper 잠금/해제
+function syncSwiperLock(target) {
+  const elements = getActiveElements();
+  if (!elements) {
+    swiper.allowTouchMove = true;
+    return;
+  }
+
+  if (!isCardExpanded) {
+    swiper.allowTouchMove = true;
+    return;
+  }
+
+  const isOnCard = elements.card.contains(target);
+  swiper.allowTouchMove = !isOnCard;
+}
+
 // 터치 시작
 function handleTouchStart(e) {
   const elements = getActiveElements();
@@ -80,6 +96,7 @@ function handleTouchStart(e) {
 
   // 카드 영역에서만 드래그 시작
   const card = elements.card;
+  syncSwiperLock(e.target);
   if (!card.contains(e.target)) return;
 
   startY = e.touches[0].clientY;
@@ -114,6 +131,7 @@ function handleTouchEnd() {
   isDragging = false;
   startY = 0;
   currentY = 0;
+  swiper.allowTouchMove = true;
 }
 
 // 마우스 휠 처리 (데스크톱)
@@ -123,8 +141,14 @@ function handleWheel(e) {
 
   const card = elements.card;
   const isOnCard = card.contains(e.target);
+  if (!isCardExpanded) {
+    swiper.allowTouchMove = true;
+  }
 
   if (isOnCard) {
+    if (isCardExpanded) {
+      swiper.allowTouchMove = false;
+    }
     // 축소 상태 + 위로 스크롤 → 확장
     if (!isCardExpanded && e.deltaY > 0) {
       e.preventDefault();
@@ -156,7 +180,10 @@ swiper.on("slideChange", () => {
 });
 
 // 이벤트 리스너 등록
-document.addEventListener("touchstart", handleTouchStart, { passive: true });
+document.addEventListener("touchstart", handleTouchStart, {
+  passive: true,
+  capture: true,
+});
 document.addEventListener("touchmove", handleTouchMove, { passive: false });
 document.addEventListener("touchend", handleTouchEnd, { passive: true });
 document.addEventListener("wheel", handleWheel, { passive: false });
